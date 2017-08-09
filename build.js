@@ -12,7 +12,11 @@ const onError = function(err) {
 
 gulp.task('html', function() {
     return gulp.src('src/*.html')
-        .pipe(htmlmin({collapseWhitespace: true}))
+        .pipe(htmlmin({
+            collapseWhitespace: true, 
+            minifyCSS: true,
+            removeComments: true
+        }))
         .on('error', onError)
         .pipe(gulp.dest('dist'));
 });
