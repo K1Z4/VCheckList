@@ -54,6 +54,15 @@ button:hover {
     box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }
 
+input[type=text] {
+    transition: background-color, border .3s;
+    border: 1px solid #ddd;
+}
+input[type=text]:hover {
+    border: 1px solid #23b8f3;
+    background-color: #f9f9f9;
+}
+
 /* 
 ##################   Menu   ##################
 */
@@ -82,15 +91,10 @@ h1 {
 #checklisttitle {
     font-size: 21px;
     padding: 5px 10px;
-    border: 1px solid #ddd;
     border-radius: 3px;
-    background-color: transparent;
     transition: .2s background-color;
     width: 100%;
     font-weight: bold;
-}
-#checklisttitle:hover {
-    border: 1px solid #ccc;
 }
 #checklisttitle:focus {
     background-color: #fff;
@@ -103,22 +107,18 @@ h1 {
     align-items: center;
 }
 .checklist-item:hover input[type=text], .checklist-item:hover .checkbox {
-    background-color: #eaeaea;
+    background-color: #f9f9f9;
 }
 .checklist-item input[type=text] {
     border-radius: 3px;
     border: 1px solid transparent;
-    background-color: transparent;
     padding: 5px;
     transition: border,background-color .3s;
     width: 100%;
     margin-left: 5px;
 }
-.checklist-item input[type=text]:focus {
-    background-color: #fff;
-}
 .checklist-item input[type=text]:hover {
-    border: 1px solid #ccc;
+    border: 1px solid #23b8f3;
 }
 .main {
     max-width: 600px;
@@ -135,6 +135,10 @@ h1 {
     border: 2px solid grey;
     vertical-align: middle;
     display: inline-block;
+    transition: border-color .3s;
+}
+.checkbox:hover {
+    border-color: #23b8f3;
 }
 .check {
     width: 100%;
@@ -160,6 +164,7 @@ input[type="checkbox"] {
     background-image: none;
     margin: 0;
     cursor: pointer;
+    border-radius: 3px;
 }
 input[type="checkbox"]:checked {
     background-image: url("./res/check.svg");
