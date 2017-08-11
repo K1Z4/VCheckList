@@ -119,7 +119,8 @@ class CheckList {
 						history.pushState(...params);
 					}
 				},
-				popstate: function(state) {
+				popstate: function(event) {
+                    const state = event.state;
 					if (!state) {
 						this.showMenu = true;
 						return;
@@ -139,9 +140,7 @@ class CheckList {
 					this.showMenu = true;
 				}
 
-				window.addEventListener("popstate", (event) => {
-					this.popstate(event.state);
-				});
+                window.addEventListener("popstate", this.popstate.bind(this));
 			}
 		});
 	}
