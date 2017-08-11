@@ -107,16 +107,16 @@ class CheckList {
 			},
 			methods: {
 				updateState: function(replace = false) {
+					const params = [
+						{ listId: this.listId, showMenu: this.showMenu },
+						"",
+						this.showMenu ? "/" : "?" + this.listId
+					];
+					
 					if (replace) {
-						history.replaceState(
-							{ listId: this.listId, showMenu: this.showMenu },
-							"",
-							this.showMenu ? "" : "?" + this.listId);
+						history.replaceState(...params);
 					} else {
-						history.pushState(
-							{ listId: this.listId, showMenu: this.showMenu },
-							"",
-							this.showMenu ? "" : "?" + this.listId);
+						history.pushState(...params);
 					}
 				},
 				popstate: function(state) {
