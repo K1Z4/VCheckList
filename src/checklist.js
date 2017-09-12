@@ -1,3 +1,14 @@
+class Persistence {
+	static saveLists(lists) {
+		if (!lists) throw Error("lists parameter was not provided");
+		localStorage.checklists = JSON.stringify(lists);
+	}
+
+	static loadLists() {
+		return JSON.parse(localStorage.checklists || "{}");
+	}
+}
+
 let data = {
 	showMenu: true,
 	checklists: { "h7F1oiV0": { title: "My List", items: [] }},
@@ -16,7 +27,7 @@ Vue.component('navigation', {
 	watch: {
 		showMenu: function (val) {
 			if (val)
-				this.getLists();
+				this.loadLists();
 		}
 	},
 	methods: {
@@ -24,16 +35,16 @@ Vue.component('navigation', {
 			this.listId = key;
 			this.showMenu = false;
 		},
-		getLists: function() {
-			return this.checklists = JSON.parse(localStorage.checklists || "{}");
+		loadLists: function() {
+			return this.checklists = Persistence.loadLists();
 		},
 		saveLists: function(lists) {
-			localStorage.checklists = JSON.stringify(lists);
-			this.getLists();
+			Persistence.saveLists(lists);
+			this.loadLists();
 		},
 		createChecklist: function() {
 			const listId = new Date().getTime().toString(36);
-			let lists = this.getLists();
+			let lists = this.loadLists();
 			lists[listId] = {
 				title: "New Checklist",
 				items: []
@@ -42,13 +53,13 @@ Vue.component('navigation', {
 			this.displayList(listId);
 		},
 		deleteChecklist: function(key) {
-			let lists = this.getLists();
+			let lists = this.loadLists();
 			delete lists[key];
 			this.saveLists(lists);
 		}
 	},
 	created: function() {
-		this.getLists();
+		this.loadLists();
 	}
 });
 
@@ -67,13 +78,13 @@ Vue.component('checklist', {
 	},
 	methods: {
 		save: function() {
-			let lists = JSON.parse(localStorage.checklists || "{}");
+			let lists = Persistence.loadLists();
 			lists[this.listId] = this.displayedList;
-			localStorage.checklists = JSON.stringify(lists);
+			Persistence.saveLists(lists);
 		},
 		load: function() {
 			const listId = this.listId;
-			const checklists = JSON.parse(localStorage.checklists || "{}");
+			const checklists = Persistence.loadLists();
 			this.displayedList = checklists[listId] || { title: "Checklist not found", items: [] }
 		},
 		addItem: function(event) {
