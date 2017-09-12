@@ -150,10 +150,3 @@ class CheckList {
 }
 
 var checklist = new CheckList();
-
-function $(selector) {
-	let elements = document.querySelectorAll(selector);
-	if (!elements) return console.error("No elements for selector '" + selector + "'");
-	if (elements.length === 1) return elements[0];
-	return elements;
-}
