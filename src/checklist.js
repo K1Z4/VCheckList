@@ -27,23 +27,26 @@ class CheckList {
 					this.showMenu = false;
 				},
 				getLists: function() {
-					this.checklists = JSON.parse(localStorage.checklists || "{}");
+					return this.checklists = JSON.parse(localStorage.checklists || "{}");
+				},
+				saveLists: function(lists) {
+					localStorage.checklists = JSON.stringify(lists);
+					this.getLists();
 				},
 				createChecklist: function() {
 					const listId = new Date().getTime().toString(36);
-					let lists = JSON.parse(localStorage.checklists || "{}");
+					let lists = this.getLists();
 					lists[listId] = {
 						title: "New Checklist",
 						items: []
 					}
-					localStorage.checklists = JSON.stringify(lists);
-					this.getLists();
+					this.saveLists(lists);
+					this.displayList(listId);
 				},
 				deleteChecklist: function(key) {
-					let lists = JSON.parse(localStorage.checklists || "{}");
+					let lists = this.getLists();
 					delete lists[key];
-					localStorage.checklists = JSON.stringify(lists);
-					this.getLists();
+					this.saveLists(lists);
 				}
 			},
 			created: function() {
