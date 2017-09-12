@@ -11,7 +11,7 @@
 			</ul>
 		</section></script><script type="text/x-template" id="checklistTemplate"><section class="main" id="checklist">
 			<div class="mb-1 flex">
-				<input type="text" placeholder="Checklist Title" id="checklisttitle" v-model="displayedList.title" title="Checklist Title" v-on:keyup.enter="defocus">
+				<input type="text" placeholder="Checklist Title" id="checklisttitle" v-model="displayedList.title" title="Checklist Title" v-on:keyup.enter="defocus" ref="title">
 				<button v-on:click="showMenu = true">Menu</button>
 			</div>
 			<div id="checklist-items" class="mb-1">

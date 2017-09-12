@@ -92,8 +92,9 @@ Vue.component('checklist', {
 			this.displayedList.items.splice(key,1);
 		}
 	},
-	created: function() {
+	mounted: function() {
 		this.checklists = Persistence.loadLists();
+		if (this.displayedList.title == 'New Checklist') this.$refs.title.select();
 	}
 });
 
