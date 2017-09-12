@@ -24,9 +24,16 @@ Vue.component('navigation', {
 		showMenu: function (val) {
 			if (val)
 				this.loadLists();
+		},
+		checklists: {
+			handler: "save",
+			deep: true
 		}
 	},
 	methods: {
+		save: function() {
+			Persistence.saveLists(this.checklists);
+		},
 		displayList: function(key) {
 			this.listId = key;
 			this.showMenu = false;
@@ -34,24 +41,17 @@ Vue.component('navigation', {
 		loadLists: function() {
 			return this.checklists = Persistence.loadLists();
 		},
-		saveLists: function(lists) {
-			Persistence.saveLists(lists);
-			this.loadLists();
-		},
 		createChecklist: function() {
 			const listId = new Date().getTime().toString(36);
-			let lists = this.loadLists();
-			lists[listId] = {
+			Vue.set(this.checklists, listId, {
 				title: "New Checklist",
 				items: []
-			}
-			this.saveLists(lists);
+			});
+			this.save();
 			this.displayList(listId);
 		},
 		deleteChecklist: function(key) {
-			let lists = this.loadLists();
-			delete lists[key];
-			this.saveLists(lists);
+			Vue.delete(this.checklists, key);
 		}
 	},
 	created: function() {
