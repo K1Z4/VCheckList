@@ -12,11 +12,7 @@ class Persistence {
 let data = {
 	showMenu: true,
 	checklists: { "h7F1oiV0": { title: "My List", items: [] }},
-	listId: "h7F1oiV0",
-	displayedList: {
-		title: "Default List",
-		items: []
-	}
+	listId: "h7F1oiV0"
 }
 
 Vue.component('navigation', {
@@ -68,25 +64,20 @@ Vue.component('checklist', {
 	data: function() {
 		return data;
 	},
+	computed: {
+		displayedList: function() {
+			return this.checklists[this.listId] || { title: 'List not found', items: [ { text: 'Return to the menu and create a new list', complete: false } ] };
+		}
+	},
 	watch: {
-		displayedList: {
+		checklists: {
 			handler: function() {
-				this.save();
+				Persistence.saveLists(this.checklists);
 			},
 			deep: true
 		}
 	},
 	methods: {
-		save: function() {
-			let lists = Persistence.loadLists();
-			lists[this.listId] = this.displayedList;
-			Persistence.saveLists(lists);
-		},
-		load: function() {
-			const listId = this.listId;
-			const checklists = Persistence.loadLists();
-			this.displayedList = checklists[listId] || { title: "Checklist not found", items: [] }
-		},
 		addItem: function(event) {
 			this.displayedList.items.push({ text: event.target.value, complete: false });
 			event.target.value = "";
@@ -99,11 +90,10 @@ Vue.component('checklist', {
 		},
 		deleteItem: function(key) {
 			this.displayedList.items.splice(key,1);
-			this.save();
 		}
 	},
 	created: function() {
-		this.load();
+		this.checklists = Persistence.loadLists();
 	}
 });
 
