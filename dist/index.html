@@ -1,31 +1,31 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="description" content="Persistent todo list."><meta name="viewport" content="maximum-scale=1,width=device-width,initial-scale=1,user-scalable=0"><meta name="referrer" content="origin-when-cross-origin"><title>Checklist</title><link rel="stylesheet" href="cl.css"></head><body><div id="routeManager"><navigation v-if="showMenu"></navigation><checklist v-if="!showMenu"></checklist></div><script type="text/x-template" id="navigationTemplate"><section class="main" id="menu">
-			<div class="flex mb-1">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="description" content="Simple persistent TODO list"><meta name="viewport" content="maximum-scale=1,width=device-width,initial-scale=1,user-scalable=0"><meta name="referrer" content="origin-when-cross-origin"><title>Checklist</title><link rel="stylesheet" href="cl.css"></head><body><div id="routeManager"><navigation v-if="showMenu"></navigation><checklist v-if="!showMenu"></checklist></div><script type="text/x-template" id="navigationTemplate"><section class="container">
+			<div class="mb-1 flex">
 				<h1 title="All the checklists saved on your device">Saved Lists</h1>
 				<button v-on:click="createChecklist()" title="Create a new CheckList">New List</button>
 			</div>
 			<ul>
-				<li v-for="(list, key) in checklists" class="menuRow flex" v-on:click="displayList(key)">
-					<span class="menuListTitle">{{ list.title }}</span>
+				<li v-for="(list, key) in checklists" class="menu__row flex delete-parent" v-on:click="displayList(key)">
+					<span>{{ list.title }}</span>
 					<span class="delete" title="Delete Checklist" v-on:click.stop="deleteChecklist(key)"><img src="res/x.svg"></span>
 				</li>
 			</ul>
-		</section></script><script type="text/x-template" id="checklistTemplate"><section class="main" id="checklist">
+		</section></script><script type="text/x-template" id="checklistTemplate"><section class="container">
 			<div class="mb-1 flex">
-				<input type="text" placeholder="Checklist Title" id="checklisttitle" v-model="displayedList.title" title="Checklist Title" v-on:keyup.enter="defocus">
+				<input type="text" placeholder="Checklist Title" class="text-control checklist__title" v-model="displayedList.title" title="Checklist Title" v-on:keyup.enter="defocus" ref="title">
 				<button v-on:click="showMenu = true">Menu</button>
 			</div>
-			<div id="checklist-items" class="mb-1">
+			<div class="mb-1">
 				<ul>
-					<li v-for="(item, key) in displayedList.items" class="checklist-item" >
+					<li v-for="(item, key) in displayedList.items" class="checklist-item delete-parent" >
 						<span class="checkbox" title="Toggle Completion">
 							<input type="checkbox" v-model="item.complete">
 						</span>
-						<input type="text" v-model="item.text" v-bind:class="{ complete: item.complete }" v-on:keyup.enter="defocus">
+						<input type="text" class="text-control" v-model="item.text" v-bind:class="{ complete: item.complete }" v-on:keyup.enter="defocus">
 						<span class="delete" title="Delete Checklist Item" v-on:click="deleteItem(key)"><img src="res/x.svg"></span>
 					</li>
 				</ul>
 			</div>
 			<div>
-				<input type="text" placeholder="Add an item..." v-on:change="addItem" v-on:keydown.tab="refocus" class="addItem" title="Add an item to the checklist">
+				<input class="text-control add-item" type="text" placeholder="Add an item..." v-on:change="addItem" v-on:keydown.tab="refocus" title="Add an item to the checklist">
 			</div>
 		</section></script><script src="vue.min.js"></script><script src="checklist.js"></script></body></html>

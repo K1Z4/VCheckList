@@ -23,18 +23,18 @@ ul {
 .mb-1 {
     margin-bottom: 15px;
 }
-li .delete {
+.delete {
     opacity: 0;
     transition: opacity .5s;
     padding: 2px;
     cursor: pointer;
     margin: 0 15px;
 }
-li .delete img {
+.delete img {
     width: 16px;
     height: 16px;	
 }
-li:hover .delete {
+.delete-parent:hover .delete {
     opacity: .6;
 }
 button {
@@ -55,13 +55,23 @@ button:hover {
     box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }
 
-input[type=text] {
+.text-control {
     transition: background-color, border .3s;
     border: 1px solid #ddd;
+    border-radius: 3px;
 }
-input[type=text]:hover {
+.text-control:hover {
     border: 1px solid #23b8f3;
     background-color: #f9f9f9;
+}
+.container {
+    max-width: 600px;
+    margin: 15px auto;
+    display: block;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #23b8f3;
+    background-color: #fff;
 }
 
 /* 
@@ -71,7 +81,7 @@ h1 {
     margin: 0;
     font-size: 26px;
 }
-.menuRow {
+.menu__row {
     padding: 12px 10px;
     list-style: none;
     border: 1px solid #ddd;
@@ -81,7 +91,7 @@ h1 {
     box-shadow: 2px 5px 8px -2px rgba(0,0,0,0.1);
     transition: all .4s;
 }
-.menuRow:hover {
+.menu__row:hover {
     transform: translate(-2px, -2px);
     box-shadow: 4px 5px 8px -2px rgba(0,0,0,0.1);
 }
@@ -89,15 +99,14 @@ h1 {
 /* 
 ##################   Lists   ##################
 */
-#checklisttitle {
-    font-size: 21px;
-    padding: 5px 10px;
-    border-radius: 3px;
+.checklist__title {
     transition: .2s background-color;
-    width: 100%;
+    padding: 5px 10px;
     font-weight: bold;
+    font-size: 21px;
+    width: 100%;
 }
-#checklisttitle:focus {
+.checklist__title:focus {
     background-color: #fff;
 }
 
@@ -111,7 +120,6 @@ h1 {
     background-color: #f9f9f9;
 }
 .checklist-item input[type=text] {
-    border-radius: 3px;
     border: 1px solid transparent;
     padding: 5px;
     transition: border,background-color .3s;
@@ -120,15 +128,6 @@ h1 {
 }
 .checklist-item input[type=text]:hover {
     border: 1px solid #23b8f3;
-}
-.main {
-    max-width: 600px;
-    margin: 15px auto;
-    display: block;
-    padding: 20px;
-    border-radius: 5px;
-    border: 1px solid #23b8f3;
-    background-color: #fff;
 }
 .checkbox {
     width: 23px;
@@ -150,11 +149,16 @@ h1 {
     text-decoration: line-through;
     color: #969696;
 }
-.addItem {
+.add-item {
     padding: 6px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    width: 50%;
     min-width: 200px;
+    max-width: 100%;
+    box-sizing: border-box;
+    transition: width .6s, background-color,border .3s;
+}
+.add-item:focus {
+    width: 100%;
 }
 input[type="checkbox"] {
     -webkit-appearance: none;
